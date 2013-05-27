@@ -2,6 +2,7 @@ import gpxpy.parser as parser
 from datetime import *
 from gpxpy import mod_gpx
 from optparse import OptionParser
+from GpxMerger import *
 
 # ========================================= #
 
@@ -100,9 +101,44 @@ def split_and_merge_by_date(file_path, merge_names=None, merge_file=None):
 def separate_names(option, opt, value, parser):
 	parser.values.merge_names = value.split(",")
 
+
+def debugMerge():
+	print '[Debug] running Merger tests...'
+	
+	merger = GPXMerger()
+	merger.debug = False
+	
+	print merger
+	
+	filePaths = []
+	filePaths.append('gpx_data/Track-2013-05-13 23 02 38.gpx')
+	filePaths.append('gpx_data/Track-2013-05-18 23 45 46.gpx')
+	filePaths.append('gpx_data/Track-2013-05-19 18 17 44.gpx')
+	"""
+	filePaths.append('gpx_data/Track-2013-05-20 20 42 28.gpx')
+	filePaths.append('gpx_data/Track-2013-05-21 22 42 26.gpx')
+	filePaths.append('gpx_data/Track-2013-05-23 16 07 20.gpx')
+	filePaths.append('gpx_data/Track-2013-05-24 15 16 00.gpx')
+	filePaths.append('gpx_data/Track-2013-05-24 17 26 25.gpx')
+	filePaths.append('gpx_data/Track-2013-05-24 19 24 39.gpx')
+	filePaths.append('gpx_data/Track-2013-05-25 22 40 45.gpx')
+	filePaths.append('gpx_data/Track-2013-05-26 03 12 53.gpx')
+	filePaths.append('gpx_data/Track-2013-05-26 22 43 02.gpx')
+	filePaths.append('gpx_data/Track-2013-05-27 11 38 37.gpx')
+	#"""
+	
+	merger.addFilePaths(filePaths, True)
+	print merger
+	
+	merger.mergeTracksToFile('merged.gpx')
+
+
 	
 # ========================================= #
 def main(options=None):
+	debugMerge()
+	return
+	
 	if options:
 		file_path = options.input_file
 		merge_names = options.merge_names
