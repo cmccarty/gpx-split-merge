@@ -7,7 +7,9 @@ The goal is to merge many files that I dump while traveling and pull the data us
 # ================================================= #
 # Imports
 import gpxpy.parser as parser
-from gpxpy import mod_gpx
+import gpxpy
+import gpxpy.gpx
+#from gpxpy import mod_gpx
 
 # ================================================= #
 

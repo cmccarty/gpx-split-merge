@@ -3,9 +3,12 @@
 
 import gpxpy.parser as parser
 import datetime
-from gpxpy import mod_gpx
+
 from optparse import OptionParser
 from GpxMerger import *
+
+import gpxpy
+import gpxpy.gpx
 
 # ========================================= #
 
@@ -125,6 +128,10 @@ def main(options=None):
 
 		
 if __name__ == '__main__':
+	# Last checked I needed to add -269 to sync up the minutes/seconds
+	
+	
+	
 	# Options from command line
 	option_parser = OptionParser()
 	option_parser.add_option("-i", "--input", dest="input_file", help="Input GPX file", type="string")

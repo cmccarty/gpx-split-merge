@@ -69,6 +69,9 @@ def merge_tracks(tracks, output_file=None):
 # split out tracks and show stats to find breaks
 def split_and_merge_by_date(file_path, merge_names=None, merge_file=None):
 	# Splits a larger GPX file and merges tracks together by the same day.  Tries to account for timezones as well.
+	
+	print file_path
+	
 	print 'parsing %s...' % file_path
 	gpx = open(file_path, 'r')
 	gpx_parser = parser.GPXParser(gpx)
@@ -147,8 +150,8 @@ def debugMerge():
 	
 # ========================================= #
 def main(options=None):
-	debugMerge()
-	return
+	#debugMerge()
+	#return
 	
 	if options:
 		file_path = options.input_file
