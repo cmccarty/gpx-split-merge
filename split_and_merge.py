@@ -1,6 +1,10 @@
 import gpxpy.parser as parser
 from datetime import *
-from gpxpy import mod_gpx
+import os
+
+import gpxpy
+import gpxpy.gpx
+
 from optparse import OptionParser
 from GpxMerger import *
 
@@ -41,7 +45,7 @@ def get_avg_speed(track):
 
 # Merge tracks together, and save in the output file
 def merge_tracks(tracks, output_file=None):
-	gpx = mod_gpx.GPX()
+	gpx = gpxpy.gpx.GPX()
 	for t in tracks:
 		gpx.tracks.append(t)
 		
@@ -49,6 +53,13 @@ def merge_tracks(tracks, output_file=None):
 	
 	# save output gpx file
 	if output_file:
+		
+		directory = '/'.join(output_file.split('/')[0:-1])
+		print directory
+		if not os.path.exists(directory):
+		    os.makedirs(directory)
+		
+		
 		f = open(output_file, 'w+')
 		f.write(xml)
 		f.close()
