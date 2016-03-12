@@ -130,14 +130,14 @@ def main(options=None):
 if __name__ == '__main__':
 	# Last checked I needed to add -269 to sync up the minutes/seconds
 	
-	
-	
 	# Options from command line
 	option_parser = OptionParser()
 	option_parser.add_option("-i", "--input", dest="input_file", help="Input GPX file", type="string")
 	option_parser.add_option("-o", "--output", dest="output_file", help="Merged output file", type="string")
 	option_parser.add_option('-s', '--seconds', dest="seconds", help="Number of seconds to add (or remove)", type="int")
 	(options, args) = option_parser.parse_args()
+	
+	if not options.seconds: options.seconds = -269
 	
 	main(options)
 	

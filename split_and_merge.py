@@ -1,6 +1,7 @@
 import gpxpy.parser as parser
 from datetime import *
 import os
+import re
 
 import gpxpy
 import gpxpy.gpx
@@ -71,6 +72,7 @@ def split_and_merge_by_date(file_path, merge_names=None, merge_file=None):
 	# Splits a larger GPX file and merges tracks together by the same day.  Tries to account for timezones as well.
 	
 	print file_path
+
 	
 	print 'parsing %s...' % file_path
 	gpx = open(file_path, 'r')
@@ -113,7 +115,17 @@ def split_and_merge_by_date(file_path, merge_names=None, merge_file=None):
 	
 # convert merged_names option input string to a list	
 def separate_names(option, opt, value, parser):
-	parser.values.merge_names = value.split(",")
+
+	# Value is a range, include all values between
+	if re.search(':', value):
+		(start, end) = value.split(':')
+		names = [str(i) for i in range(int(start), int(end)+1)]
+			
+	# value is a list
+	else:
+		names = value.split(",")
+		
+	parser.values.merge_names = names
 
 
 def debugMerge():
@@ -125,26 +137,28 @@ def debugMerge():
 	print merger
 	
 	filePaths = []
-	filePaths.append('gpx_data/Track-2013-05-13 23 02 38.gpx')
-	filePaths.append('gpx_data/Track-2013-05-18 23 45 46.gpx')
-	filePaths.append('gpx_data/Track-2013-05-19 18 17 44.gpx')
-	"""
-	filePaths.append('gpx_data/Track-2013-05-20 20 42 28.gpx')
-	filePaths.append('gpx_data/Track-2013-05-21 22 42 26.gpx')
-	filePaths.append('gpx_data/Track-2013-05-23 16 07 20.gpx')
-	filePaths.append('gpx_data/Track-2013-05-24 15 16 00.gpx')
-	filePaths.append('gpx_data/Track-2013-05-24 17 26 25.gpx')
-	filePaths.append('gpx_data/Track-2013-05-24 19 24 39.gpx')
-	filePaths.append('gpx_data/Track-2013-05-25 22 40 45.gpx')
-	filePaths.append('gpx_data/Track-2013-05-26 03 12 53.gpx')
-	filePaths.append('gpx_data/Track-2013-05-26 22 43 02.gpx')
-	filePaths.append('gpx_data/Track-2013-05-27 11 38 37.gpx')
-	#"""
+	
+	base_dir = '/Users/cmccarty/Documents/gps/2014-05-22 Grand Canyon'
+	outfile_name = 'merged.gpx'
+	
+	file_names = ['Track-2014-05-23 11 23 00.gpx', 'Track-2014-05-23 21 47 24.gpx', 'Track-2014-05-26 08 53 03.gpx', 'Track-2014-05-26 08 53 34.gpx', 'Track-2014-05-28 09 38 12.gpx', 'Track-2014-05-29 21 51 59.gpx', 'Track-2014-06-01 13 30 09.gpx']
+	
+	#file_names = ['Track-2014-05-23 21 47 24.gpx']
+	
+
+	
+	for f in file_names:
+		path = '%s/%s' % (base_dir, f)
+		print 'Adding %s...' % path
+		filePaths.append(path)
+	
 	
 	merger.addFilePaths(filePaths, True)
 	print merger
 	
-	merger.mergeTracksToFile('merged.gpx')
+	outfile = '%s/%s' % (base_dir, outfile_name)
+	print 'Saving to %s...' % outfile
+	merger.mergeTracksToFile(outfile)
 
 
 	

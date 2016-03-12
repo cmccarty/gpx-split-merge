@@ -11,6 +11,8 @@ import gpxpy
 import gpxpy.gpx
 #from gpxpy import mod_gpx
 
+
+
 # ================================================= #
 
 class GPXMerger:
@@ -139,7 +141,7 @@ class GPXMerger:
 		
 		
 		# save the file
-		gpx = mod_gpx.GPX()
+		gpx = gpxpy.gpx.GPX()
 		tracks = self.getMergedTracks()
 		tracks = self.sortTracksByTime(tracks)
 		
